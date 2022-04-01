@@ -11,4 +11,22 @@ public class LineParserTests {
         String mealName = lineParser.getMealName();
         Assertions.assertEquals(mealName, "FishAndChips");
     }
+
+    @Test
+    public void extractVotesFor() {
+        int votesFor = lineParser.getVotesFor();
+        Assertions.assertEquals(votesFor, 10);
+    }
+
+    @Test
+    public void extractVotesAgainst() {
+        int votesFor = lineParser.getVotesAgainst();
+        Assertions.assertEquals(votesFor, 1);
+    }
+
+    @Test
+    public void extractMealType() {
+        String mealType = lineParser.getMealType();
+        Assertions.assertEquals(mealType, "Main");
+    }
 }
