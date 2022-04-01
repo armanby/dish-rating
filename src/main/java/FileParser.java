@@ -7,10 +7,7 @@ public class FileParser {
     private RatingFileReader ratingFileReader;
 
     public FileParser(BufferedReader bufferedReader) {
-
         ratingFileReader = new RatingFileReader(bufferedReader);
-
-
     }
 
     public ArrayList<Dish> parseFile() throws IOException {
@@ -24,10 +21,10 @@ public class FileParser {
 
         String line = ratingFileReader.readLineOfFile();
         ArrayList<Dish> dishes = new ArrayList<>();
+        LineParser parser = new LineParser();
 
         while(line != null) {
-            LineParser parser = new LineParser(line);
-            Dish currentDish = parser.getCurrentDish();
+            Dish currentDish = parser.parseLine(line);
             dishes.add(currentDish);
             line = ratingFileReader.readLineOfFile();
         }

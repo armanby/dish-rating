@@ -1,29 +1,29 @@
 public class LineParser {
-    private Dish currentDish;
 
-    public LineParser(String lineFromFile) {
-        String parts[] = lineFromFile.split("\\s+");
-        System.out.println(parts[1]);
-        currentDish = new Dish(parts[0], parts[1], Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
+    private static final int MEAL_NAME = 0;
+    private static final int MEAL_TYPE = 1;
+    private static final int VOTES_FOR = 2;
+    private static final int VOTES_AGAINST = 3;
+    private static final int TOTAL_LINE_PARTS = 4;
+
+
+    public Dish parseLine(String line) {
+        Dish parsedDish = null;
+
+        if(line != null) {
+            String parts[] = line.split("\\s+");
+
+            if(parts.length == TOTAL_LINE_PARTS) {
+
+                int votesFor = Integer.parseInt(parts[VOTES_FOR]);
+                int votesAgainst = Integer.parseInt(parts[VOTES_AGAINST]);
+
+                parsedDish = new Dish(parts[MEAL_NAME], parts[MEAL_TYPE], votesFor, votesAgainst);
+            }
+        }
+
+        return parsedDish;
+
     }
 
-    public String getMealName() {
-        return currentDish.getMealName();
-    }
-
-    public int getVotesFor() {
-        return currentDish.getVotesFor();
-    }
-
-    public int getVotesAgainst() {
-        return currentDish.getVotesAgainst();
-    }
-
-    public String getMealType() {
-        return currentDish.getMealType();
-    }
-
-    public Dish getCurrentDish() {
-        return currentDish;
-    }
 }

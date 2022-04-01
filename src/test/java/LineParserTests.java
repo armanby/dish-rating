@@ -2,31 +2,47 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class LineParserTests {
-    private final String TEST_LINE = "FishAndChips        Main        10              1";
+    private final String TEST_LINE    = "FishAndChips        Main        10              1";
+    private final String INVALID_LINE = "FishAndChips        Main        10";
 
-    LineParser lineParser = new LineParser(TEST_LINE);
+
+    private LineParser lineParser = new LineParser();
 
     @Test
     public void extractMealNameTest() {
-        String mealName = lineParser.getMealName();
-        Assertions.assertEquals(mealName, "FishAndChips");
-    }
-
-    @Test
-    public void extractVotesFor() {
-        int votesFor = lineParser.getVotesFor();
-        Assertions.assertEquals(votesFor, 10);
-    }
-
-    @Test
-    public void extractVotesAgainst() {
-        int votesFor = lineParser.getVotesAgainst();
-        Assertions.assertEquals(votesFor, 1);
+        Dish returnedDish = lineParser.parseLine(TEST_LINE);
+        Assertions.assertEquals(returnedDish.getMealName(), "FishAndChips");
     }
 
     @Test
     public void extractMealType() {
-        String mealType = lineParser.getMealType();
-        Assertions.assertEquals(mealType, "Main");
+        Dish returnedDish = lineParser.parseLine(TEST_LINE);
+        Assertions.assertEquals(returnedDish.getMealType(), "Main");
     }
+
+    @Test
+    public void extractVotesFor() {
+        Dish returnedDish = lineParser.parseLine(TEST_LINE);
+        Assertions.assertEquals(returnedDish.getVotesFor(), 10);
+    }
+
+    @Test
+    public void extractVotesAgainst() {
+        Dish returnedDish = lineParser.parseLine(TEST_LINE);
+        Assertions.assertEquals(returnedDish.getVotesAgainst(), 1);
+    }
+
+    @Test
+    public void nullInputAsLine() {
+        Dish returnedDish = lineParser.parseLine(null);
+        Assertions.assertNull(returnedDish);
+    }
+
+    @Test
+    public void invalidLineTest() {
+        Dish returnedDish = lineParser.parseLine(INVALID_LINE);
+        Assertions.assertNull(returnedDish);
+    }
+
+
 }
